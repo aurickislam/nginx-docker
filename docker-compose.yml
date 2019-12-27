@@ -4,7 +4,7 @@ services:
   nginx:
     image: nginx:1.17.6
     container_name: nginx
-    # restart: always
+#    restart: always
     ports:
       - 80:80
     volumes:
@@ -14,6 +14,6 @@ services:
     links:
       - php
   php:
-    image: php:7.4.0-fpm
+    image: php:7.4.1-fpm
     volumes:
       - ./code:/code
