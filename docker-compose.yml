@@ -2,7 +2,8 @@ version: '3.7'
 
 services:
   nginx:
-    image: nginx:1.17.6
+#    image: nginx:1
+    image: nginx:1-alpine
     container_name: nginx
 #    restart: always
     ports:
@@ -11,9 +12,19 @@ services:
       - ./code:/code
       - ./site.conf:/etc/nginx/conf.d/site.conf
 #     - /some/content:/usr/share/nginx/html
-    links:
+    networks:
+      - nginx-network
+    depends_on:
       - php
+
   php:
-    image: php:7.4.1-fpm
+#    image: php:7-fpm
+    image: php:7-fpm-alpine
+    container_name: php
     volumes:
       - ./code:/code
+    networks:
+      - nginx-network
+
+networks:
+  nginx-network:
