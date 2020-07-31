@@ -13,7 +13,7 @@ services:
       - ./site.conf:/etc/nginx/conf.d/site.conf
 #     - /some/content:/usr/share/nginx/html
     networks:
-      - nginx-network
+      - nginx
     depends_on:
       - php
 
@@ -26,7 +26,7 @@ services:
     volumes:
       - ./code:/code
     networks:
-      - nginx-network
+      - nginx
 
 networks:
-  nginx-network:
+  nginx:
