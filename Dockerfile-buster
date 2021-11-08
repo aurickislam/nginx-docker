@@ -1,0 +1,15 @@
+FROM php:7-fpm
+
+WORKDIR /php/composer
+
+RUN apt update \
+#  && apt-get install -y --no-install-recommends openssl libssl-dev libcurl4-openssl-dev \
+  && apt install -y --no-install-recommends libssl-dev unzip \
+  && pecl install mongodb \
+  && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+  && docker-php-ext-enable mongodb \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  # Time Zone
+  && echo "date.timezone=${PHP_TIMEZONE:-UTC}" > $PHP_INI_DIR/conf.d/date_timezone.ini \
+  && composer require mongodb/mongodb
